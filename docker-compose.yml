@@ -1,12 +1,14 @@
-version: '3.9'
+version: 'latest'
 
 services:
   postgres:
     image: postgres
     ports:
       - '5432:5432'
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
+    environment:
+      POSTGRES_DB: "example"
     volumes:
       - 'postgres:/var/lib/postgresql/data'
 

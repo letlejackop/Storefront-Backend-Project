@@ -5,27 +5,36 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
+- Index '/products' [get]
+- Show '/products/:id' [get]
+- Create [token required] '/products' [post]
 - [OPTIONAL] Top 5 most popular products 
 - [OPTIONAL] Products by category (args: product category)
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] '/users' [get]
+- Show [token required] '/users/:id' [get]
+- Create N[token required] '/users' [post]
 
 #### Orders
-- Current Order by user (args: user id)[token required]
+- create [token required] '/orders' [post]
+- Current Order by user (args: user id)[token required] '/orders/:id' [GET]
+- add product to order '/orders/:id/products' [post]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
+
+## DataBase Tables
+- Table: users (id number, firstName varchar, lastName varchar, password varchar)
+- Table: products (id number, name varchar, price number, category varchar)
+- Table: orders (id number, status varchar, user_id number [foreign key to users table])
+- Table: orders (id number, order_id number [foreign key to order table], product_id number [foreign key to product table], quantity number)
+
 
 ## Data Shapes
 #### Product
 -  id
 - name
 - price
-- [OPTIONAL] category
+- category
 
 #### User
 - id
@@ -39,4 +48,3 @@ These are the notes from a meeting with the frontend developer that describe wha
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
-
