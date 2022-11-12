@@ -59,7 +59,12 @@ export class UserMethods {
             const result = await conn
                 .query(sql, [u.firstName, u.lastName, hash])
 
-            const user = result.rows[0]
+            const user: User = {
+                id: result.rows[0].id,
+                firstName: result.rows[0].firstname,
+                lastName: result.rows[0].lastname,
+                password: result.rows[0].password
+            }
 
             conn.release()
 

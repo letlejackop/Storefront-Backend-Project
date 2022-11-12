@@ -50,25 +50,24 @@ beforeAll(async () => {
 })
 
 describe("Order Model", () => {
-
-    it('should have a show method', () => {
-        expect(methods.currentActiveOrder).toBeDefined();
-    });
-
     it('create method should add an order', async () => {
         const result = await methods.create({
             id: 1,
             status: 'active',
             user_id: 1,
         });
-        expect(result).toBeDefined();
+        expect(parseInt(result.user_id as unknown as string)).toBe(1);
+    });
+
+    it('should have a show method', async () => {
+        const result = await methods.currentActiveOrder(1)
+        expect(parseInt(result.user_id as unknown as string)).toBe(1);
     });
 
     it('add a product to an order method', async () => {
         const result = await methods.addProduct(1, 1, 1);
 
-
-        expect(result).toBeDefined();
+        expect(parseInt(result.order_id as unknown as string)).toBe(1);
     });
 
 });
@@ -97,7 +96,10 @@ describe("testing Order endpoints", () => {
             .set('Accept', 'application/json')
             .auth(token, { type: 'bearer' })
 
+
         expect(response.status).toBe(200);
+        expect(parseInt(response.body.user_id)).toBe(2);
+
     });
     it('tests the add product to order endpoint', async () => {
         const response = await request.post(
@@ -111,14 +113,17 @@ describe("testing Order endpoints", () => {
 
 
         expect(response.status).toBe(200);
+        expect(parseInt(response.body.product_id)).toBe(2);
     });
 
     it('tests the current active order for user id 1 endpoint', async () => {
         const response = await request.get(
-            "/orders/1",
+            "/orders/3",
         ).auth(token, { type: 'bearer' })
 
+
         expect(response.status).toBe(200);
+        expect(parseInt(response.body.user_id as unknown as string)).toBe(3);
     });
 
 });

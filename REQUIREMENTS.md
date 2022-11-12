@@ -26,7 +26,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Table: users (id number, firstName varchar, lastName varchar, password varchar)
 - Table: products (id number, name varchar, price number, category varchar)
 - Table: orders (id number, status varchar, user_id number [foreign key to users table])
-- Table: orders (id number, order_id number [foreign key to order table], product_id number [foreign key to product table], quantity number)
+- Table: order_products (id number, order_id number [foreign key to order table], product_id number [foreign key to product table], quantity number)
 
 
 ## Data Shapes

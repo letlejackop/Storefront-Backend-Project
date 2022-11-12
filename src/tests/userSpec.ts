@@ -33,7 +33,7 @@ describe("User Model", () => {
             password: 'password123'
         });
 
-        expect(result).toBeDefined()
+        expect(result.firstName as unknown as string).toBe("faisal")
 
     });
 
@@ -52,7 +52,7 @@ describe("User Model", () => {
     it('index method should return a list of users', async () => {
         const result = await methods.index();
 
-        expect(result).toBeDefined();
+        expect(result[0].id).toBe(1)
     });
 
     it('show method should return the correct user', async () => {
@@ -79,6 +79,8 @@ describe("User Endpoint Testing", () => {
             .set('Accept', 'application/json')
 
         expect(response.status).toBe(200);
+        expect(response.body as unknown as string).toBeInstanceOf(String);
+
     });
 
     it('tests the show endpoint', async () => {
@@ -87,6 +89,7 @@ describe("User Endpoint Testing", () => {
         ).auth(token, { type: 'bearer' })
 
         expect(response.status).toBe(200);
+        expect(parseInt(response.body.id)).toBe(1);
     });
 
     it('tests the index endpoint', async () => {
@@ -95,6 +98,7 @@ describe("User Endpoint Testing", () => {
         ).auth(token, { type: 'bearer' })
 
         expect(response.status).toBe(200);
+        expect(parseInt(response.body[0].id)).toBe(1);
     });
 
 });

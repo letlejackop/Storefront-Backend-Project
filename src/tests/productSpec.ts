@@ -28,13 +28,13 @@ describe("Product Model", () => {
             category: "fruits"
         });
 
-        expect(result).toBeDefined()
+        expect(result.name).toBe("apple")
     });
 
 
     it('index method should return a list of products', async () => {
         const result = await methods.index();
-        expect(result).toBeDefined()
+        expect(parseInt(result[0].id as unknown as string)).toBe(1);
     });
 
     it('show method should return the correct product', async () => {
@@ -59,6 +59,7 @@ describe("Product Endpoint Testing", () => {
 
 
         expect(response.status).toBe(200);
+        expect(response.body.name).toBe("orange");
     });
 
     it('tests the show endpoint', async () => {
@@ -67,13 +68,16 @@ describe("Product Endpoint Testing", () => {
         )
 
         expect(response.status).toBe(200);
+        expect(parseInt(response.body.id)).toBe(1);
     });
 
     it('tests the index endpoint', async () => {
         const response = await request.get(
             "/products",
         )
+
         expect(response.status).toBe(200);
+        expect(parseInt(response.body[0].id)).toBe(1);
     });
 
 });

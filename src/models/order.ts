@@ -80,7 +80,6 @@ export class OrderMethods {
             const orderp = result.rows[0]
 
             conn.release()
-            console.log(orderp);
 
 
             return orderp
